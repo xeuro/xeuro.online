@@ -1,0 +1,266 @@
+<div class="ui container">
+
+
+    <div class="ui top attached stackable tabular menu">
+        <!--<div class="ui four item top attached stackable tabular menu">-->
+        <!-- not to be used as directive : line between tabs and content -->
+        <a class="item" ui-sref-active="active" data-tab="home" ui-sref="home">xEURO Home</a>
+        <a class="item" ui-sref-active="active" data-tab="faq" ui-sref="faq">FAQ</a>
+        <a class="item" ui-sref-active="active" data-tab="smartContract" ui-sref="smartContract">Smart Contract</a>
+        <a class="item" ui-sref-active="active" data-tab="myAccount" ui-sref="myAccount">My Account</a>
+        <a class="item" ui-sref-active="active" data-tab="admin" ui-sref="admin"
+           ng-show="myUserDataFromServer&&myUserDataFromServer.appUser&&myUserDataFromServer.appUser.admin">Admin</a>
+    </div>
+
+    <div class="ui bottom attached active tab segment" data-tab="admin">
+
+        <!--<no-connection-to-node-error></no-connection-to-node-error>-->
+
+        <a class="ui red right ribbon label">{{labelText}}</a><br><br>
+
+        <div id="loginButton" class="item right">
+
+            <button ng-show="!gapi.login" class="tiny ui google plus button" ng-click="loginScope()">
+                <i class="google icon"></i>
+                Login / Sign Up with Google
+            </button>
+
+            <button ng-show="gapi.login" class="tiny ui google plus button" ng-click="logout()">
+                <i class="google icon"></i>
+                Logout
+            </button>
+
+        </div>
+
+        <alerts></alerts>
+
+        <div id="profile" class="ui segment">
+
+            <div ng-show="working">
+                <i class="sync loading icon"></i>
+            </div>
+
+            <div class="ui negative message" ng-hide="myUserDataFromServer">
+                <div class="header">User is not logged in.</div>
+                <p>
+                    Click 'Login / Sign Up' or reload/refresh the page. Information is available only for registered
+                    users
+                </p>
+            </div>
+
+            <div id="myUserDataFromServer" ng-show="myUserDataFromServer.pgpPublicKeyAPIView">
+                Your profile:<br>
+                <span ng-show="gapi.login"><img class="ui avatar image" ng-src="{{gapi.user.picture}}"></span>
+                <span style="font-weight: bold">
+                        {{myUserDataFromServer.pgpPublicKeyAPIView.firstName}}&nbsp;{{myUserDataFromServer.pgpPublicKeyAPIView.lastName}}
+                    </span><br>
+                <span>
+                        {{myUserDataFromServer.pgpPublicKeyAPIView.userEmail}}<br>
+                        Cryptonomica Key ID:&nbsp;&nbsp;
+                        <a ng-href="https://www.cryptonomica.net/#!/key/{{myUserDataFromServer.pgpPublicKeyAPIView.fingerprint}}"
+                           target="_blank">
+                            {{myUserDataFromServer.pgpPublicKeyAPIView.keyID}}
+                        </a>
+                    </span><br>
+                Verification valid until:&nbsp;&nbsp;
+                <span ng-style="(myUserDataFromServer.pgpPublicKeyAPIView.expired && {'color':'red', 'font-weight':'bold'})||{'color':'green'}">
+                        {{myUserDataFromServer.pgpPublicKeyAPIView.exp | date}}
+                    </span><br>
+                <span ng-show="myUserDataFromServer&&myUserDataFromServer.appUser">
+                        Your banking account (IBAN):&nbsp;&nbsp;
+                        <span ng-show="myUserDataFromServer.appUser.iban">
+                            {{myUserDataFromServer.appUser.iban}}
+                        </span>
+                        <span ng-show="!myUserDataFromServer.appUser.iban" style="color: red">
+                            not set
+                        </span>
+
+                    </span><br>
+
+                <div ng-show="myUserDataFromServer.appUser.ethAddress">
+                    Registered ETH address for this profile:&nbsp;&nbsp;
+                    <a style="font-weight: bold"
+                       ng-href="{{currentNetwork.etherscanLinkPrefix}}address/{{myUserDataFromServer.appUser.ethAddress}}"
+                       target="_blank">
+                        {{myUserDataFromServer.appUser.ethAddress}}
+                    </a>
+                </div>
+
+                <span ng-show="myUserDataFromServer&&myUserDataFromServer.appUser&&myUserDataFromServer.appUser.paymentReference">
+                        EUR payments reference:&nbsp;&nbsp;
+                        <a>
+                        <!--<a title="click to copy">-->
+                            3x1176x{{myUserDataFromServer.appUser.paymentReference}}
+                        </a>
+                    </span>
+                <!--<div class="ui divider"></div>-->
+            </div>
+
+        </div>
+
+        <h3>
+
+        </h3>
+
+        <h3 id="depositsHeader">
+            Deposits for review
+            <span ng-show="!showDeposits" class="ui horizontal label"
+                  ng-click="showDeposits=true"
+                  title="Click to show">
+                <a>Show</a>
+            </span>
+            <span ng-show="showDeposits" class="ui horizontal label"
+                  ng-click="showDeposits=false"
+                  title="Click to hide">
+                <a>Hide</a>
+            </span>
+            :
+        </h3>
+        <div id="depositsForReview" class="ui segment" ng-show="showDeposits">
+
+            <button class="ui button" ng-click="getDepositsForRevue()">
+                Get/refresh deposits for review
+            </button>
+            <br>
+
+            <div ng-show="depositsForRevue&&depositsForRevue.items">
+                <br>
+                <strong>Total: {{depositsForRevue.items.length}}</strong>
+                <br>
+
+                <div class="ui raised segment" ng-repeat="deposit in depositsForRevue.items">
+                    ({{$index + 1}})<br>
+                    <div ng-repeat="(key, value) in deposit">
+                        {{key}}:&nbsp;&nbsp;{{value}}<br>
+                    </div>
+                    <!--                    <div class="ui divider"></div>-->
+                    <!--                    Tx:&nbsp;&nbsp;-->
+                    <strong>
+                        <a ng-href="{{currentNetwork.etherscanLinkPrefix}}/tx/{{deposit.mintAndTransferTokensTxHash}}"
+                           title="Click to see transaction on etherscan" target="_blank">
+                            {{deposit.mintAndTransferTokensTxHash}}
+                        </a>
+                    </strong>
+                    <br>
+                    DB entity created: {{deposit.entityCreated | date:'yyyy-MM-dd HH:mm:ss Z'}}<br>
+                    BD entity changed: {{deposit.entityChanged | date:'yyyy-MM-dd HH:mm:ss Z'}}<br>
+                    <br>
+                    <a ng-href="https://pay.bitcoinus.io/transactions/{{deposit.transactionId}}/receipt"
+                       target="_blank" title="click to open .pdf in a new window/tab">
+                        View transaction receipt on Bitcoinus
+                    </a>
+                    <br><br>
+                    <button class="ui tiny button" ng-click="getTransaction(deposit.transactionId)"
+                            ng-disabled="!deposit.transactionId">
+                        Get transaction info from Bitcoinus
+                    </button>
+                    <div ng-show="depositTransactions[deposit.transactionId]">
+                        {{depositTransactions[deposit.transactionId]}}
+                    </div>
+
+                    <br><br>
+                    <button class="ui tiny button" ng-click="fiatInPaymentsToMintTokensEvent(deposit.transactionId)"
+                            ng-disabled="!deposit.transactionId" title="click to open .pdf in a new window/tab">
+                        Get MintTokensEvent struct from sc for fiat incoming tx with id {{deposit.transactionId}}
+                    </button>
+                    <div ng-show="mintTokensEventStructs[deposit.transactionId]">
+                        <span ng-repeat="(key, value) in mintTokensEventStructs[deposit.transactionId]">
+                            {{key}}:&nbsp;&nbsp;{{value}}<br>
+                        </span>
+
+                    </div>
+
+                    <h4>Notes about manual review (required):</h4>
+                    <div class="ui fluid  input">
+                        <input type="text" ng-model="internalNotes[deposit.transactionId]">
+                    </div>
+                    <br>
+                    <button class="ui button" ng-click="setDepositConfirmed(deposit.transactionId)">
+                        Confirm deposit processed
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <h3 id="tokensInEventsHeader">
+            Tokens > EUR exchange requests for review
+            <span ng-show="!showTokensInEvents" class="ui horizontal label"
+                  ng-click="showTokensInEvents=true"
+                  title="Click to show">
+                <a>Show</a>
+            </span>
+            <span ng-show="showTokensInEvents" class="ui horizontal label"
+                  ng-click="showTokensInEvents=false"
+                  title="Click to hide">
+                <a>Hide</a>
+            </span>
+            :
+        </h3>
+        <div id="tokensInEvents" class="ui segment" ng-show="showTokensInEvents">
+
+            <button class="ui button" ng-click="getTokensInEventsForRevue()">
+                Get/refresh tokens > EUR exchange requests for review
+            </button>
+            <br>
+
+            <div ng-show="tokensInEventsForRevue&&tokensInEventsForRevue.items">
+                <br>
+                <strong>Total: {{tokensInEventsForRevue.items.length}}</strong>
+                <br>
+
+                <div class="ui raised segment" ng-repeat="tokensInEvent in tokensInEventsForRevue.items">
+
+                    ({{$index + 1}})<br>
+
+                    <!--
+                    <div ng-repeat="(key, value) in tokensInEvent">
+                        {{key}}:&nbsp;&nbsp;{{value}}<br>
+                    </div>
+                    -->
+
+                    TokensIn Event Id/Counter: {{tokensInEvent.id}}<br>
+                    Tx hash:
+                    <a ng-href="{{currentNetwork.etherscanLinkPrefix}}tx/{{tokensInEvent.txHash}}"
+                       target="_blank">
+                        {{tokensInEvent.txHash}}
+                    </a><br>
+                    From:
+                    <a ng-href="{{currentNetwork.etherscanLinkPrefix}}address/{{tokensInEvent.from}}"
+                       target="_blank">
+                        {{tokensInEvent.from}}
+                    </a><br>
+                    Value: {{tokensInEvent.value}}<br>
+                    Bitcoinus response for our 'send funds' request : {{tokensInEvent.sendFundsResponse}}<br>
+                    Internal notes: {{tokensInEvent.internalNotes}}<br>
+                    Network Id: {{tokensInEvent.networkId}}
+                    <br>
+                    DB entity created: {{tokensInEvent.entityCreated | date:'yyyy-MM-dd HH:mm:ss Z'}}<br>
+                    DB entity changed: {{tokensInEvent.entityChanged | date:'yyyy-MM-dd HH:mm:ss Z'}}<br>
+                    <br>
+
+                    <h4>Notes about manual review (required):</h4>
+                    <div class="ui fluid  input">
+                        <input type="text" ng-model="tokensInEventsInternalNotes[tokensInEvent.id]">
+                    </div>
+                    <br>
+                    <button class="ui button" ng-click="setTokensInEventConfirmed(tokensInEvent.id)">
+                        Confirm tokens > EUR exchange processed
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+</div>
+
+<br>
+<footer-main></footer-main>
+<br>

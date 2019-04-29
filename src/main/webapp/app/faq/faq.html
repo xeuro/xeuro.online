@@ -1,0 +1,35 @@
+<div class="ui container">
+
+    <!-- not to be used as directive -->
+    <div class="ui top attached stackable tabular menu">
+        <!--<div class="ui four item top attached stackable tabular menu">-->
+        <!-- not to be used as directive : line between tabs and content -->
+        <a class="item" ui-sref-active="active" data-tab="home" ui-sref="home">xEURO Home</a>
+        <a class="item" ui-sref-active="active" data-tab="faq" ui-sref="faq">FAQ</a>
+        <a class="item" ui-sref-active="active" data-tab="smartContract" ui-sref="smartContract">Smart Contract</a>
+        <a class="item" ui-sref-active="active" data-tab="myAccount" ui-sref="myAccount">My Account</a>
+        <a class="item" ui-sref-active="active" data-tab="admin" ui-sref="admin"
+           ng-show="myUserDataFromServer&&myUserDataFromServer.appUser&&myUserDataFromServer.appUser.admin">Admin</a>
+    </div>
+
+    <div id="homeTab" class="ui bottom attached active tab segment" data-tab="faq">
+
+        <no-connection-to-node-error></no-connection-to-node-error>
+
+        <a class="ui red right ribbon label">{{labelText}}</a>
+
+        <!--<h1>FAQ (frequently asked questions)</h1>-->
+        <div>
+            <br>
+            <md ng-include="'/app/faq/faq.md'"></md>
+        </div>
+
+    </div>
+
+</div>
+
+</div>
+
+<br>
+<footer-main></footer-main>
+<br>

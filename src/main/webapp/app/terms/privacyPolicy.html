@@ -1,0 +1,54 @@
+<div class="ui container">
+
+    <!-- not to be used as directive -->
+    <div class="ui top attached tabular menu">
+
+        <a class="item" ui-sref-active="active" data-tab="home" ui-sref="home">xEURO Home</a>
+        <a class="item" ui-sref-active="active" data-tab="home" ui-sref="faq">FAQ</a>
+        <a class="item" ui-sref-active="active" data-tab="help" ui-sref="help">Help</a>
+        <a class="item" ui-sref-active="active" data-tab="smartContract" ui-sref="smartContract">Smart Contract</a>
+        <a class="item" ui-sref-active="active" data-tab="myAccount" ui-sref="myAccount">My Account</a>
+
+        <div class="item right">
+            <div class="right">
+                <button ng-show="!googleUser"
+                        class="tiny ui google plus button" ng-click="login()" style="width: 16em">
+                    <i class="google icon"></i>
+                    Login with Google
+                </button>
+                <button ng-show="googleUser"
+                        class="tiny ui google plus button" ng-click="logout()" style="width: 16em">
+                    <i class="google icon"></i>
+                    Logout
+                </button>
+            </div>
+        </div>
+
+        <!--
+                <div class="item right">
+
+                    <div class="right">
+
+                        <button class="tiny ui blue button" ng-href="{{currentNetwork.etherscanLinkPrefix}}"
+                                title="Click to see network information" target="_blank" style="width: 13em">
+                            <i class="ethereum icon"></i>
+                            {{currentNetwork.networkName}}
+                        </button>
+
+                    </div>
+
+                </div>
+                -->
+    </div>
+
+    <div class="ui bottom attached segment">
+        <div ng-include="'/app/terms/privacyPolicyText.html'"></div>
+    </div>
+
+</div>
+
+</div>
+
+<br>
+<footer-main></footer-main>
+<br>

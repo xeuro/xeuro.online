@@ -1,0 +1,176 @@
+<div class="ui container">
+
+    <div class="ui top attached stackable tabular menu">
+        <!--<div class="ui four item top attached stackable tabular menu">-->
+        <!-- not to be used as directive : line between tabs and content -->
+        <a class="item" ui-sref-active="active" data-tab="home" ui-sref="home">xEURO Home</a>
+        <a class="item" ui-sref-active="active" data-tab="faq" ui-sref="faq">FAQ</a>
+        <a class="item" ui-sref-active="active" data-tab="smartContract" ui-sref="smartContract">Smart Contract</a>
+        <a class="item" ui-sref-active="active" data-tab="myAccount" ui-sref="myAccount">My Account</a>
+        <a class="item" ui-sref-active="active" data-tab="admin" ui-sref="admin"
+           ng-show="myUserDataFromServer&&myUserDataFromServer.appUser&&myUserDataFromServer.appUser.admin">Admin</a>
+    </div>
+
+    <div id="homeTab" class="ui bottom attached active tab segment" data-tab="help">
+
+        <no-connection-to-node-error></no-connection-to-node-error>
+
+        <a class="ui red right ribbon label">{{labelText}}</a>
+
+        <h1>xEURO</h1>
+
+        <h2>What is xEURO</h2>
+
+        <p>
+            xEURO (xEUR) is token on the Ethereum blockchain that represents EUR.
+        </p>
+        <p>
+            It can be transferred on blockchain, this means: fast, cheap and without the need for intermediaries
+            such as banks or financial companies, and no one can confiscate or block them.
+        </p>
+        <p>
+            At the same time, the price of the token, unlike many other cryptocurrencies, is not volatile,
+            you can exchange your tokens at any time for the price of one euro per one token: just send the tokens to
+            the smart contract address, and you will receive euros to your account. It's like
+            <a href="https://en.wikipedia.org/wiki/Traveler%27s_cheque" target="_blank">traveler's checks</a>
+            but on the blockchain.
+        </p>
+        <p>
+            Using tokens is much more secure than credit cards, especially for payments on the Internet.
+        </p>
+        <p>
+            And you can use tokens in smart contracts, so it's programmable money.
+        </p>
+        <p>
+            To exchange xEUR to EUR and vice versa you have to pass user identification procedure provided by
+            <a href="https://cryptonomica.net" target="_blank">
+                cryptonomica.net
+            </a><br>
+            Once you pass KYC procedure, you can automatically exchange xEUR tokens to euros and vice versa.
+        </p>
+        <p>
+            Exchange is provided by licensed financial institution
+            <a href="https://mtr.mkm.ee/juriidiline_isik/229169" target="_blank">Etna Development OÜ</a> (Estonia),
+            which is also operating
+            <a href="https://www.stex.com" target="_blank">Stex Exchange</a>, one of the most transparent
+            from the largest crypto exchanges (see
+            <a href="https://cointelegraph.com/news/new-report-warns-87-percent-of-cryptocurrency-exchange-volume-is-potentially-suspicious"
+               target="_blank">reports</a>
+            from 'The Tie' investigations), trusted by over 300 000 users from more than 100 countries.
+        </p>
+        <p>
+            Technically xEuro is a
+            <a href="https://github.com/ethereum/EIPs/blob/master/EIPS/eip-20.md" target="_blank">
+                ERC20
+            </a>
+            token on the Ethereum blockchain and it is already supported in almost all Ethereum wallets software, such
+            as
+            <a href="https://metamask.io" target="_blank">Metamask</a>,
+            <a href="https://www.myetherwallet.com" target="_blank">MEW</a>,
+            <a href="https://github.com/ethereum/mist/releases" target="_blank">Mist</a> etc.
+        </p>
+
+        <h1>Buy xEURO</h1>
+
+        <p>To buy xEURO user have to send a
+            <a href="https://ec.europa.eu/info/business-economy-euro/banking-and-finance/servizi-finanziari-ai-consumatori-e-pagamenti/payment-services/single-euro-payments-area-sepa_en"
+               target="_blank">SEPA</a>
+            <!--or <a href="https://www.swift.com" target="_blank">SWIFT</a>-->
+            payment to our bank account:
+
+            <!--<div class="ui segment">-->
+        <table class="ui celled table">
+            <tbody>
+            <tr>
+                <td>Account Name/Bank Customer Name:</td>
+                <td>
+                    Etna Development OÜ
+                </td>
+            </tr>
+            <tr>
+                <td>Registration No:</td>
+                <td>
+                    <a href="https://mtr.mkm.ee/juriidiline_isik/229169" target="_blank">
+                        14477355
+                    </a>
+                </td>
+            </tr>
+            <tr>
+                <td>Licenses</td>
+                <td>
+                    <a href="https://mtr.mkm.ee/taotluse_tulemus/484981" target="_blank">
+                        FVR000142
+                    </a>
+                    &nbsp;&nbsp;Financial services, Providing services of exchanging a virtual currency against a
+                    fiat currency
+                    <br> from 08.05.2018 (Estonia, EU)<br>
+                    <a href="https://mtr.mkm.ee/taotluse_tulemus/484975" target="_blank">
+                        FRK000120
+                    </a>
+                    &nbsp;&nbsp;Financial services, Providing a virtual currency wallet service
+                    <br> from 08.05.2018 (Estonia, EU)
+                </td>
+            </tr>
+            <tr>
+                <td>Address:</td>
+                <td>Parda tn 4, Kesklinna linnaosa, Tallinn, Harju maakond, 10151, Estonia</td>
+            </tr>
+            <tr>
+                <td>Account Number (IBAN):</td>
+                <td>
+                    LT183510000088270907
+                </td>
+            </tr>
+
+            <!--
+           <tr>
+               <td>Bank Name:</td>
+               <td></td>
+           </tr>
+
+           <tr>
+               <td>Bank's Address:</td>
+               <td></td>
+           </tr>
+
+           <tr>
+               <td>Bank's SWIFT:</td>
+               <td></td>
+           </tr>
+          -->
+            <tr>
+                <td>Reference:</td>
+                <!--<td class="" style="color: #000066; font-style: italic;">-->
+                <td>
+                    you will get reference string after registering your Ethereum account in our system
+                    <!--<code>you will get reference string after registering your Ethereum account in our system</code>-->
+
+                    <!--
+                    <div style="font-style: italic">
+                    where {ethereum account} should be an Ethereum account registered in our system
+                    </div>
+                    -->
+
+                </td>
+            </tr>
+
+            </tbody>
+        </table>
+        <br>
+
+        <p>
+            To register an Ethereum account user have to
+            <a href="" ui-sref="myAccount">sign up</a>
+            and pass user verification (KYC).
+        </p>
+        <br>
+
+    </div>
+
+</div>
+
+</div>
+
+<br>
+<footer-main></footer-main>
+<br>

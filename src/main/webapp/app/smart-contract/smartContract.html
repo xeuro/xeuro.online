@@ -1,0 +1,416 @@
+<div class="ui container">
+
+    <!-- not to be used as directive -->
+    <div class="ui top attached stackable tabular menu">
+        <!--<div class="ui four item top attached stackable tabular menu">-->
+        <!-- not to be used as directive : line between tabs and content -->
+        <a class="item" ui-sref-active="active" data-tab="home" ui-sref="home">xEURO Home</a>
+        <a class="item" ui-sref-active="active" data-tab="faq" ui-sref="faq">FAQ</a>
+        <a class="item" ui-sref-active="active" data-tab="smartContract" ui-sref="smartContract">Smart Contract</a>
+        <a class="item" ui-sref-active="active" data-tab="myAccount" ui-sref="myAccount">My Account</a>
+        <a class="item" ui-sref-active="active" data-tab="admin" ui-sref="admin"
+           ng-show="myUserDataFromServer&&myUserDataFromServer.appUser&&myUserDataFromServer.appUser.admin">Admin</a>
+    </div>
+
+    <div id="smartContractTab" class="ui bottom attached active tab segment" data-tab="smartContract">
+
+        <no-connection-to-node-error></no-connection-to-node-error>
+        <div class="ui negative message"
+             ng-show="currentNetwork&&currentNetwork.network_id&&currentNetwork.network_id!=contractDeployedOnNetworkId">
+            Smart contract does not work on {{networks[currentNetwork.network_id].networkName}}<br>
+            Please, switch to {{networks[contractDeployedOnNetworkId].networkName}}
+        </div>
+
+        <a class="ui red ribbon label">{{labelText}}</a>
+
+        <h1>Smart contract</h1>
+
+        <alerts></alerts>
+
+        <div id="workWithSmartContract" ng-show="currentNetwork&&currentNetwork.network_id"
+             ng-hide="currentNetwork&&currentNetwork.network_id&&currentNetwork.network_id!=contractDeployedOnNetworkId">
+
+            <div id="smartContractData" class="ui segment">
+
+                <h4>
+                    EUR deposits data
+                    <span class="ui horizontal tiny label" ng-click="getEURBalance()"
+                          title="Click to refresh">
+                    <a>Refresh</a>
+                </span>
+                </h4>
+                <div>
+                    Current deposits in EUR on {{companyName}} bank account ({{xEuroBankAcc}}):&nbsp;
+                    <a href="" ng-click="getEURBalance()" title="Click to refresh">{{EuroBalance}}&nbsp;EUR</a>
+                </div>
+
+                <h4>
+                    Smart contract data
+                    <span class="ui horizontal tiny label" ng-click="refresh()"
+                          title="Click to refresh data from smart contract">
+                    <a>Refresh</a>
+                </span>
+                </h4>
+
+                <div ng-show="currentNetwork&&currentNetwork.network_id">
+                    network ID: {{currentNetwork.network_id}}
+                    (<a ng-href="{{currentNetwork.etherscanLinkPrefix}}"
+                        target="_blank">{{currentNetwork.networkName}}</a>)
+                </div>
+
+                <div ng-show="!contract&&!noConnectionToNodeError">
+                    Contract is not deployed on
+                    <a ng-href="{{currentNetwork.etherscanLinkPrefix}}"
+                       target="_blank">{{currentNetwork.networkName}}</a>
+                </div>
+
+                <div ng-show="contract._address">
+                    contract address:&nbsp;
+                    <a ng-href="{{currentNetwork.etherscanLinkPrefix}}address/{{contract._address}}"
+                       title="click to see on etherscan.io" target="_blank">
+                        {{contract._address}}
+                    </a>&nbsp;(you can also use smart contract interface on the Etherscan)
+
+                    <div title="click to refresh"
+                         ng-click="refreshTotalSupply()">
+                        total supply:&nbsp;
+                        <span ng-hide="refreshTotalSupplyWorking">{{totalSupply}}</span>
+                        <span ng-show="refreshTotalSupplyWorking"><i class="fa fa-refresh fa-spin fa-fw"></i></span>
+                        &nbsp;xEUR
+                    </div>
+
+                    <div ng-show="web3.eth.defaultAccount">
+                        your address:&nbsp;
+                        <a ng-href="{{currentNetwork.etherscanLinkPrefix}}address/{{web3.eth.defaultAccount}}"
+                           title="click to see on etherscan.io" target="_blank">
+                            {{web3.eth.defaultAccount}}
+                        </a>
+                        <span ng-show="isAdmin">
+                        &nbsp;(<span style="font-weight: bold">*</span> admin of this contract)
+                    </span>
+                    </div>
+
+                    <div ng-show="web3.eth.defaultAccount" title="click to refresh"
+                         ng-click="refreshBalanceOfDefaultAccount()">
+                        your current balance:&nbsp;
+                        <span ng-hide="balanceOfDefaultAccountWorking">{{balanceOfDefaultAccount}}</span>
+                        <span ng-show="balanceOfDefaultAccountWorking"><i
+                                class="fa fa-refresh fa-spin fa-fw"></i></span>
+                        &nbsp;xEUR
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div id="mintTokens" class="ui segment" ng-show="canMint">
+
+                <h4>Mint tokens</h4>
+
+                <div ng-click="refreshBalanceOfContract()" title="Click to refresh">
+                    <p>
+                        Tokens on contract's own address:&nbsp;
+                        <span ng-hide="balanceOfContractWorking">{{balanceOfContract}}</span>
+                        <span ng-show="balanceOfContractWorking"><i class="fa fa-refresh fa-spin fa-fw"></i></span>
+                        &nbsp;xEUR
+                    </p>
+                    <p></p>
+                </div>
+
+                <form id="mintTokensForm" class="ui form">
+
+                    <div class="field">
+                        <label>Mint new tokens:</label>
+
+                        <div class="ui left labeled input">
+                            <label for="mintTokensValue" class="ui label">xEURO</label>
+                            <input type="number" id="mintTokensValue"
+                                   ng-model="mintTokensValue">
+                        </div>
+
+                        <div class="ui right labeled input">
+
+                            <input type="number" id="fiatInPaymentId"
+                                   ng-model="fiatInPaymentId">
+                            <label for="fiatInPaymentId" class="ui label">Fiat deposit Id</label>
+                        </div>
+
+                    </div>
+
+                    <div class="ui negative message" ng-show="mintTokensError">
+                        <i class="close icon" ng-click="mintTokensError=null"></i>
+                        {{mintTokensError}}
+                    </div>
+
+                    <div id="mintTokensTxHash" ng-show="mintTokensTxHash" class="ui info message">
+                        <i class="close icon" ng-click="mintTokensTxHash=null"></i>
+                        Transaction:&nbsp;
+                        <a ng-href="{{currentNetwork.etherscanLinkPrefix}}tx/{{mintTokensTxHash}}"
+                           title="click to see on etherscan.io" target="_blank">
+                            {{mintTokensTxHash}}
+                        </a>
+                    </div>
+
+                    <button class="ui secondary button" type="submit" ng-click="mintTokens()"
+                            ng-disabled="mintTokensWorking">
+                        <span ng-show="mintTokensWorking"><i class="fa fa-refresh fa-spin fa-fw"></i></span>
+                        Mint {{mintTokensValue}} tokens
+                    </button>
+                </form>
+
+            </div>
+
+            <div id="transferTokensFromContract" class="ui segment" ng-show="canTransferFromContract">
+                <h4>Transfer tokens from contract's account to user account</h4>
+
+                <div ng-click="refreshBalanceOfContract()" title="Click to refresh">
+                    Tokens on contract's own address:&nbsp;
+                    <span ng-hide="balanceOfContractWorking">{{balanceOfContract}}</span>
+                    <span ng-show="balanceOfContractWorking"><i class="fa fa-refresh fa-spin fa-fw"></i></span>
+                    &nbsp;xEUR
+                </div>
+                <br>
+                <form id="transferTokensFromContractForm" class="ui form">
+                    <div class="field">
+                        <label>Transfer:</label>
+                        <div class="ui left labeled input">
+                            <label for="transferTokensFromContractValue" class="ui label">xEURO</label>
+                            <input type="number" id="transferTokensFromContractValue"
+                                   ng-model="transferTokensFromContractValue">
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label>To:</label>
+                        <input type="text" id="transferTokensFromContractTo" ng-model="transferTokensFromContractTo">
+                    </div>
+
+                    <div class="ui negative message" ng-show="transferTokensFromContractError">
+                        <i class="close icon" ng-click="transferTokensFromContractError=null"></i>
+                        {{transferTokensFromContractError}}
+                    </div>
+
+                    <div id="transferTokensFromContractTxHash" ng-show="transferTokensFromContractTxHash"
+                         class="ui info message">
+                        <i class="close icon" ng-click="transferTokensFromContractTxHash=null"></i>
+                        Transaction:&nbsp;
+                        <a ng-href="{{currentNetwork.etherscanLinkPrefix}}tx/{{transferTokensFromContractTxHash}}"
+                           title="click to see on etherscan.io" target="_blank">
+                            {{transferTokensFromContractTxHash}}
+                        </a>
+                    </div>
+
+                    <button class="ui secondary button" type="submit" ng-click="transferTokensFromContract()"
+                            ng-disabled="transferTokensFromContractWorking">
+                        <span ng-show="transferTokensFromContractWorking"><i
+                                class="fa fa-refresh fa-spin fa-fw"></i></span>
+                        Transfer {{transferTokensFromContractValue}} tokens from contract
+                    </button>
+                </form>
+            </div>
+
+            <div id="transferTokensToContract" class="ui segment">
+                <h4>
+                    Transfer your tokens to contract address to exchange to fiat (EUR to your account), min. transfer:
+                    12
+                    xEUR
+                </h4>
+
+                <div ng-show="web3.eth.defaultAccount" title="click to refresh"
+                     ng-click="refreshBalanceOfDefaultAccount()">
+                    your current balance:&nbsp;
+                    <a href="">
+                        <span ng-hide="balanceOfDefaultAccountWorking">{{balanceOfDefaultAccount}}</span>
+                        <span ng-show="balanceOfDefaultAccountWorking"><i
+                                class="fa fa-refresh fa-spin fa-fw"></i></span>
+                        &nbsp;xEUR
+                    </a>
+                </div>
+
+                <!-- TODO: -->
+                <br>
+                <form id="transferTokensToContractForm" class="ui form">
+
+                    <div class="field">
+                        <label>Transfer:</label>
+                        <div class="ui left labeled input">
+                            <label for="transferTokensToContractValue" class="ui label">xEURO</label>
+                            <input type="number" id="transferTokensToContractValue"
+                                   ng-model="transferTokensToContractValue">
+                        </div>
+                    </div>
+
+                    <div class="ui negative message" ng-show="transferTokensToContractError">
+                        <i class="close icon" ng-click="transferTokensToContractError=null"></i>
+                        {{transferTokensToContractError}}
+                    </div>
+
+                    <div id="transferTokensToContractTxHash" ng-show="transferTokensToContractTxHash"
+                         class="ui info message">
+                        <i class="close icon" ng-click="transferTokensToContractTxHash=null"></i>
+                        Transaction:&nbsp;
+                        <a ng-href="{{currentNetwork.etherscanLinkPrefix}}tx/{{transferTokensToContractTxHash}}"
+                           title="click to see on etherscan.io" target="_blank">
+                            {{transferTokensToContractTxHash}}
+                        </a>
+                    </div>
+
+                    <button class="ui secondary button" type="submit" ng-click="transferTokensToContract()"
+                            ng-disabled="transferTokensToContractWorking">
+                        <span ng-show="transferTokensToContractWorking"><i
+                                class="fa fa-refresh fa-spin fa-fw"></i></span>
+                        Exchange {{transferTokensToContractValue}} tokens to fiat EUR
+                    </button>
+                    <div>
+                        Please provide enough gas, preferably more than recommended by MetaMask<br>
+                        (visit <a href="https://ethgasstation.info" target="_blank">ethgasstation.info</a> to get more
+                        info
+                        about gas price)
+                    </div>
+
+                </form>
+            </div>
+
+            <div id="transfer" class="ui segment">
+                <h4>Transfer tokens from your account to another account</h4>
+
+                <div ng-show="web3.eth.defaultAccount" title="click to refresh"
+                     ng-click="refreshBalanceOfDefaultAccount()">
+                    your current balance:&nbsp;
+                    <span ng-hide="balanceOfDefaultAccountWorking">{{balanceOfDefaultAccount}}</span>
+                    <span ng-show="balanceOfDefaultAccountWorking"><i class="fa fa-refresh fa-spin fa-fw"></i></span>
+                    &nbsp;xEUR
+                </div>
+
+                <br>
+                <form id="transferForm" class="ui form">
+                    <div class="field">
+                        <label>Transfer:</label>
+                        <div class="ui left labeled input">
+                            <label for="transferTokensFromContractValue" class="ui label">xEURO</label>
+                            <input type="number" id="transferValue"
+                                   ng-model="transferValue">
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label>To:</label>
+                        <input type="text" id="transferTo" ng-model="transferTo">
+                    </div>
+
+                    <div class="ui negative message" ng-show="transferError">
+                        <i class="close icon" ng-click="transferError=null"></i>
+                        {{transferError}}
+                    </div>
+
+                    <div id="transferTxHash" ng-show="transferTxHash" class="ui info message">
+                        <i class="close icon" ng-click="transferTxHash=null"></i>
+                        Transaction:&nbsp;
+                        <a ng-href="{{currentNetwork.etherscanLinkPrefix}}tx/{{transferTxHash}}"
+                           title="click to see on etherscan.io" target="_blank">
+                            {{transferTxHash}}
+                        </a>
+                    </div>
+
+                    <button class="ui secondary button" type="submit" ng-click="transfer()"
+                            ng-disabled="transferWorking">
+                        <span ng-show="transferWorking"><i class="fa fa-refresh fa-spin fa-fw"></i></span>
+                        Transfer {{transferValue}} tokens
+                    </button>
+                </form>
+            </div>
+
+            <div id="burnTokens" class="ui segment" ng-show="canBurn">
+
+                <h4>Burn Tokens</h4>
+
+                <div ng-click="refreshBalanceOfContract()" title="Click to refresh">
+                    <p>
+                        Tokens on contract's own address:&nbsp;
+                        <span ng-hide="balanceOfContractWorking">{{balanceOfContract}}</span>
+                        <span ng-show="balanceOfContractWorking"><i class="fa fa-refresh fa-spin fa-fw"></i></span>
+                        &nbsp;xEUR
+                    </p>
+                    <p></p>
+                </div>
+
+                <form id="canBurnForm" class="ui form">
+                    <div class="field">
+                        <label>Burn:</label>
+                        <div class="ui left labeled input">
+                            <label for="burnTokensValue" class="ui label">xEURO</label>
+                            <input type="number" id="burnTokensValue"
+                                   ng-model="burnTokensValue">
+                        </div>
+                    </div>
+                    <div class="ui negative message" ng-show="burnTokensError">
+                        <i class="close icon" ng-click="burnTokensError=null"></i>
+                        {{burnTokensError}}
+                    </div>
+
+                    <div id="burnTokensTxHash" ng-show="burnTokensTxHash" class="ui info message">
+                        <i class="close icon" ng-click="burnTokensTxHash=null"></i>
+                        Transaction:&nbsp;
+                        <a ng-href="{{currentNetwork.etherscanLinkPrefix}}tx/{{burnTokensTxHash}}"
+                           title="click to see on etherscan.io" target="_blank">
+                            {{burnTokensTxHash}}
+                        </a>
+                    </div>
+
+                    <button id="burnTokensBtn" class="ui secondary button" type="submit" ng-click="burnTokens()"
+                            ng-disabled="burnTokensWorking">
+                        <span ng-show="burnTokensWorking"><i class="fa fa-refresh fa-spin fa-fw"></i></span>
+                        Burn {{burnTokensValue}} tokens
+                    </button>
+                </form>
+            </div>
+
+            <div id="eventsSegment" class="ui segment">
+
+                <h3 id="eventsHeader">
+                    Events from smart contract (last {{maxEventsNumber}})
+                    <span ng-show="!showEvents" class="ui horizontal label"
+                          ng-click="showEvents=true"
+                          title="Click to show events">
+                    <a>Show</a>
+                </span>
+                    <span ng-show="showEvents" class="ui horizontal label"
+                          ng-click="showEvents=false"
+                          title="Click to hide events">
+                    <a>Hide</a>
+                </span>
+                    :
+                </h3>
+
+                <div id="events" ng-show="showEvents">
+                    <div ng-repeat="event in events">
+                        <div>
+                            <strong>
+                                <a ng-href="{{currentNetwork.etherscanLinkPrefix}}/tx/{{event.transactionHash}}"
+                                   title="Click to see transaction on etherscan" target="_blank">
+                                    {{event.event}}
+                                </a>:
+                            </strong>
+                        </div>
+                        <div ng-repeat="(key, value) in event.returnValues" ng-if="key.length>1">
+                            <!--<div ng-repeat="(key, value) in event.args">-->
+                            <span><em>{{key}}</em> : {{value}}</span>
+                        </div>
+                        (block:
+                        <a ng-href="{{currentNetwork.etherscanLinkPrefix}}/block/{{event.blockNumber}}">
+                            {{event.blockNumber}}
+                        </a>
+                        )
+                        <div class="line"></div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<br>
+<footer-main></footer-main>
+<br>

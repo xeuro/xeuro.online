@@ -1,0 +1,118 @@
+<div class="ui container">
+
+    <div class="ui top attached tabular menu">
+
+        <a class="item" ui-sref-active="active" data-tab="home" ui-sref="home">xEURO Home</a>
+        <a class="item" ui-sref-active="active" data-tab="faq" ui-sref="faq">FAQ</a>
+        <a class="item" ui-sref-active="active" data-tab="help" ui-sref="help">Help</a>
+        <a class="item" ui-sref-active="active" data-tab="smartContract" ui-sref="smartContract">Smart Contract</a>
+        <a class="item" ui-sref-active="active" data-tab="myAccount" ui-sref="myAccount">My Account</a>
+        <a class="item" ui-sref-active="active" data-tab="admin" ui-sref="admin"
+           ng-show="myUserDataFromServer&&myUserDataFromServer.appUser&&myUserDataFromServer.appUser.admin">Admin</a>
+
+        <!--
+        <div class="item right">
+                    <div class="right">
+                        <button ng-show="!gapi.login"
+                                class="tiny ui google plus button" ng-click="login()" style="width: 16em">
+                            <i class="google icon"></i>
+                            Login with Google
+                        </button>
+                        <button ng-show="gapi.login"
+                                class="tiny ui google plus button" ng-click="logout()" style="width: 16em">
+                            <i class="google icon"></i>
+                            Logout
+                        </button>
+                    </div>
+                </div>
+         -->
+
+    </div>
+
+    <div id="helpTab" class="ui bottom attached active tab segment" data-tab="help">
+
+        <no-connection-to-node-error></no-connection-to-node-error>
+
+        <a class="ui teal ribbon label">{{labelText}}</a>
+
+        <h1>Help</h1>
+
+        <!--<md ng-include="'/app/home/home.md'"></md>-->
+
+        <h2 id="how-to-use-this-page-site-">Recommended software:</h2>
+
+        <div id="metaMask">
+            <center>
+                <a href="https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn"
+                   target="_blank" title="Click to download MetaMask plugin">
+                    <img src="https://metamask.io/img/ethereum-metamask-chrome.png" class="ui medium image"
+                         alt="MetaMask">
+                </a>
+            </center>
+            <center><h3>MetaMask</h3></center>
+            <p><a href="https://metamask.io/">MetaMask</a> is an <a
+                    href="https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn">extension</a>
+                for accessing Ethereum enabled distributed applications, or "dAapps" in your normal Chrome browser!
+            </p>
+            <p><a href="https://metamask.io/">MetaMask</a> also lets the user create and manage their own
+                identities, so when a Dapp wants to perform a transaction and write to the blockchain, the user gets
+                a secure interface to review the transaction, before approving or rejecting it.
+            </p>
+            <p>Because it adds functionality to the normal browser context, MetaMask requires the permission to read
+                and write to any webpage. You can always "view the source" of MetaMask the way you do any Chrome
+                extension, or view the source code on Github:
+                <a href="https://github.com/MetaMask/metamask-plugin">https://github.com/MetaMask/metamask-plugin</a>
+            </p>
+            <p>You can download MetaMask on the
+                <a href="https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn">
+                    chrome web store
+                </a> and read more instruction on how to use it on the MetaMask website:
+                <a href="https://metamask.io/">metamask.io</a>
+            </p>
+        </div>
+
+        <div id="mistBrowser">
+            <br>
+            <div>
+                <center>
+                    <a href="https://github.com/ethereum/mist/releases" title="Click to download Mist Browser">
+                        <img src="https://raw.githubusercontent.com/ethereum/mist/develop/icons/mist/icon2x.png"
+                             class="ui small image" alt="Mist Browser">
+                    </a>
+                </center>
+            </div>
+            <center><h3>Mist Browser</h3></center>
+            <div style="color: red">
+                <center>
+                    Mist can be used for tokens transfers, but not supported yet for Ethereum address verifications
+                </center>
+            </div>
+            <p>To use smart contract function you can install Mist browser. </p>
+            <p> Mist browser is an Internet browser (like Google Chrome) with Ethereum node connected to it.</p>
+            <p>Mist browser is free and open sourced.</p>
+            <h4 id="installing-mist-browser">Installing Mist Browser</h4>
+            <p>Go to <a href="https://github.com/ethereum/mist/releases">github.com/ethereum/mist/releases</a> and
+                download Mist for your operating system.
+            </p>
+            <h4 id="run-mist-browser">Run Mist Browser</h4>
+            <p>When Mist Browser starts, it needs to synchronize your local copy of Ethereum blockchain and start
+                Ethereum node. For storing blockchain you will need about 100 GB of free space on your hard
+                drive.</p>
+            <p>When Mist Browser starts first time it may need up to few hours (depends on you network and system)
+                to download your copy of the Ethereum blockchain.</p>
+
+            <p>When Mist starts you can choose to use TestNet (for testing, with test ether), or MainNet (with real
+                ether and legal binding smart contract on it). If you run Mist for the first time, than it's
+                probably better to start with TestNet. We have our smart contracts both for TestNet where you can
+                test their functions, and for MainNet.</p>
+            <br>
+            </center>
+        </div>
+
+    </div>
+
+</div>
+
+<br>
+<footer-main></footer-main>
+<br>

@@ -1,0 +1,8 @@
+
+smart contract address:
+
+*  address: https://etherscan.io/address/0xe577e0B200d00eBdecbFc1cd3F7E8E04C70476BE
+*  deployed on block: 7660532
+
+> com.appspot.euro2ether.constants.Constants
+> app/app.js

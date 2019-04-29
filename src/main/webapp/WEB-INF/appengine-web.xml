@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+see:
+appengine-web.xml Reference
+https://cloud.google.com/appengine/docs/standard/java/config/appref
+-->
+<appengine-web-app xmlns="http://appengine.google.com/ns/1.0">
+    <runtime>java8</runtime>
+    <threadsafe>true</threadsafe>
+
+<!--
+    <basic-scaling>
+        <max-instances>2</max-instances>
+    </basic-scaling>
+-->
+
+    <system-properties>
+        <property name="java.util.logging.config.file" value="WEB-INF/logging.properties"/>
+    </system-properties>
+
+    <!-- [START env_variables] -->
+    <env-variables>
+        <env-var name="ENDPOINTS_SERVICE_NAME" value="${endpoints.project.id}.appspot.com" />
+    </env-variables>
+    <!-- [END env_variables] -->
+</appengine-web-app>

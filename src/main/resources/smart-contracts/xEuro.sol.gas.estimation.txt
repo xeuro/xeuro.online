@@ -1,0 +1,63 @@
+
+======= ./src/main/resources/smart-contracts/xEuro.sol:CryptonomicaVerification =======
+Gas estimation:
+
+======= ./src/main/resources/smart-contracts/xEuro.sol:SafeMath =======
+Gas estimation:
+construction:
+   94 + 15200 = 15294
+internal:
+   add(uint256,uint256):	infinite
+   div(uint256,uint256):	infinite
+   mod(uint256,uint256):	infinite
+   mul(uint256,uint256):	infinite
+   sub(uint256,uint256):	infinite
+
+======= ./src/main/resources/smart-contracts/xEuro.sol:TokenRecipient =======
+Gas estimation:
+
+======= ./src/main/resources/smart-contracts/xEuro.sol:xEuro =======
+Gas estimation:
+construction:
+   infinite + 1720800 = infinite
+external:
+   addAdmin(address):	infinite
+   addToCanBurn(address):	infinite
+   addToCanMint(address):	infinite
+   addToCanTransferFromContract(address):	infinite
+   allowance(address,address):	749
+   approve(address,uint256):	22390
+   approve(address,uint256,uint256):	22850
+   balanceOf(address):	569
+   burnTokens(uint256,uint256,uint256):	infinite
+   burnTokensEvents(uint256):	1814
+   burnTokensEventsCounter():	466
+   canBurn(address):	603
+   canMint(address):	669
+   canTransferFromContract(address):	582
+   changeCryptonomicaVerificationContractAddress(address):	infinite
+   changeMinExchangeAmount(uint256):	infinite
+   cryptonomicaVerification():	482
+   decimals():	297
+   fiatInPaymentIds(uint256):	584
+   fiatInPaymentsToMintTokensEvent(uint256):	1599
+   fiatOutPaymentIdsUsed(uint256):	562
+   isAdmin(address):	582
+   minExchangeAmount():	466
+   mintAndTransfer(uint256,uint256,address):	infinite
+   mintTokens(uint256,uint256):	infinite
+   mintTokensEvent(uint256):	1578
+   mintTokensEventsCounter():	509
+   name():	infinite
+   removeAdmin(address):	infinite
+   removeFromCanBurn(address):	infinite
+   removeFromCanMint(address):	infinite
+   removeFromCanTransferFromContract(address):	infinite
+   symbol():	infinite
+   tokensInEventsCounter():	509
+   tokensInTransfer(uint256):	1066
+   totalSupply():	510
+   transfer(address,uint256):	infinite
+   transferAllAndCall(address,bytes):	infinite
+   transferAndCall(address,uint256,bytes):	infinite
+   transferFrom(address,address,uint256):	infinite

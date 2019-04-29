@@ -1,0 +1,75 @@
+<div id="footer" class="ui container">
+    <div class="ui bottom attached active tab segment bottomFooter">
+
+        <div ng-show="gapi.login">
+
+            Logged in as: <span style="font-weight: bold">{{gapi.user.email}}</span>
+            <!--
+            Logged in as:<br>
+            <img class="ui avatar image" ng-src="{{gapi.user.picture}}">
+            <span style="font-weight: bold">{{gapi.user.name}}</span><br>
+            {{gapi.user.email}}
+            -->
+            <!--<div class="line"></div>-->
+        </div>
+
+        <div ng-show="web3&&web3.eth&&web3.eth.defaultAccount">
+            User ETH account connected:&nbsp;&nbsp;
+            <a ng-href="{{currentNetwork.etherscanLinkPrefix}}address/{{web3.eth.defaultAccount}}" target="_blank">
+                {{web3.eth.defaultAccount}}
+            </a>
+        </div>
+
+        <div>
+            <div class="line"></div>
+            Webapp version:&nbsp;&nbsp;{{webAppVersion}},&nbsp;&nbsp;last change:&nbsp;&nbsp;{{webAppLastChange}}
+        </div>
+
+        <!--<div class="line"></div>-->
+
+        <!--
+                <div id="ethNetworkInfo">
+
+                    You use node:&nbsp {{currentNetwork.node}}<br>
+                    Network ID:&nbsp{{currentNetwork.network_id }}&nbsp(
+                    <a ng-href="{{currentNetwork.etherscanLinkPrefix}}" target="_blank">{{currentNetwork.networkName}}</a>)<br>
+
+                    <span ng-show="web3&&web3.eth&&web3.eth.defaultAccount">
+                        User ETH account connected:&nbsp;&nbsp;
+                        <a ng-href="{{currentNetwork.etherscanLinkPrefix}}address/{{web3.eth.defaultAccount}}" target="_blank">
+                            {{web3.eth.defaultAccount}}
+                        </a>
+                    </span>
+
+                    <span ng-hide="web3&&web3.eth&&web3.eth.defaultAccount">
+                    No ETH accounts connected
+                    </span>
+
+                </div>
+        -->
+
+        <div>
+            <div class="line"></div>
+
+            Support:&nbsp;&nbsp;
+            <a ng-href="mailto:{{supportEmail}}" title="contact support">
+                <i class="fa fa-envelope-o"></i>
+                &nbsp;{{supportEmail}}
+            </a>
+            &nbsp;&nbsp;|&nbsp;&nbsp;
+            <a href="" ui-sref="termsOfService">
+                Terms of use
+            </a>
+            &nbsp;&nbsp;|&nbsp;&nbsp;
+            <a href="" ui-sref="privacyPolicy">
+                Privacy Policy
+            </a>
+
+            <!--<i class="fa fa-copyright"></i>&nbsp;2018,-->
+            <!--<a href="https://xeuro.online">-->
+            <!--xeuro.online-->
+            <!--</a>-->
+            <br>
+        </div>
+    </div>
+</div>

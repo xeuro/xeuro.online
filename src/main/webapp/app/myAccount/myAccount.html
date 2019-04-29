@@ -1,0 +1,351 @@
+<div class="ui container">
+
+
+    <div class="ui top attached stackable tabular menu">
+        <!--<div class="ui four item top attached stackable tabular menu">-->
+        <!-- not to be used as directive : line between tabs and content -->
+        <a class="item" ui-sref-active="active" data-tab="home" ui-sref="home">xEURO Home</a>
+        <a class="item" ui-sref-active="active" data-tab="faq" ui-sref="faq">FAQ</a>
+        <a class="item" ui-sref-active="active" data-tab="smartContract" ui-sref="smartContract">Smart Contract</a>
+        <a class="item" ui-sref-active="active" data-tab="myAccount" ui-sref="myAccount">My Account</a>
+        <a class="item" ui-sref-active="active" data-tab="admin" ui-sref="admin"
+           ng-show="myUserDataFromServer&&myUserDataFromServer.appUser&&myUserDataFromServer.appUser.admin">Admin</a>
+    </div>
+
+    <div class="ui bottom attached active tab segment" data-tab="myAccount">
+
+        <no-connection-to-node-error></no-connection-to-node-error>
+
+        <a class="ui red right ribbon label">{{labelText}}</a><br><br>
+
+        <div id="loginButton" class="item right">
+
+            <button ng-show="!gapi.login" class="tiny ui google plus button" ng-click="loginScope()">
+                <i class="google icon"></i>
+                Login / Sign Up with Google
+            </button>
+
+            <!--
+            <button ng-show="gapi.login" class="tiny ui google plus button" ng-click="logout()">
+                <i class="google icon"></i>
+                Logout
+            </button>
+            -->
+
+            <a ng-show="gapi.login" class="tiny ui google plus button" href="https://accounts.google.com/Logout">
+                <i class="google icon"></i>
+                Logout
+            </a>
+
+        </div>
+
+        <!--
+
+                <div id="myAccountInnerTabs">
+
+                    <div class="ui four item stackable tabs menu">
+                        <a class="item" ng-class="activeTab==1&&'active'" ng-click="activeTab=1">User data</a>
+                        <a class="item" ng-class="activeTab==2&&'active'" ng-click="activeTab=2">Add Ethereum Account</a>
+                        <a class="item" ng-class="activeTab==3&&'active'" ng-click="activeTab=3">Usage</a>
+                        <a class="item" ng-class="activeTab==4&&'active'" ng-click="activeTab=4">Settings</a>
+                    </div>
+        -->
+
+        <alerts></alerts>
+
+        <!--<div class="ui active tab segment" ng-show="activeTab===1">-->
+        <div class="ui segment">
+
+            <div ng-show="working">
+                <i class="sync loading icon"></i>
+            </div>
+
+            <div class="ui negative message" ng-hide="myUserDataFromServer">
+                <div class="header">User is not logged in.</div>
+                <p>
+                    Click 'Login / Sign Up' or reload/refresh the page. Information is available only for registered
+                    users
+                </p>
+            </div>
+
+            <form id="enterCryptonomicaKeyForm" class="ui form"
+                  ng-show="myUserDataFromServer&&!myUserDataFromServer.pgpPublicKeyAPIView">
+
+                <div class="field">
+
+                    <label>
+                        Identity of
+                        <a>
+                            {{gapi.user.email}}
+                        </a>
+                        is not verified yet.<br>
+                        Please enter fingerprint of your public key certificate verified by Cryptonomica.net
+                    </label>
+
+                    <div class="ui left icon input">
+                        <i class="key icon"></i>
+                        <input id="fingerprint" type="text" placeholder="F52FDDBAF282D84B57A1562D045A1D779CA8B0A9"
+                               ng-change="fingerprintFormValidation(fingerprint)"
+                               ng-model="fingerprint">
+                    </div>
+                    <span style="color: red">{{fingerprintFormValidationMessage}}</span>
+                    <br>
+                    <button class="ui button" ng-click="checkFingerprintOnCryptonomica(fingerprint)"
+                            ng-disabled="!fingerprint">
+                        Submit
+                    </button>
+                    &nbsp;&nbsp;&nbsp;
+                    <button class="ui button" ng-click="receivePromoCodeFromCryptonomica()"
+                            title="Click if you don't have fingerprint">
+                        I don't have key fingerprint
+                    </button>
+                    <div id="promoCodeFromCryptonomica" ng-show="promoCode&&promoCode.promoCode">
+                        <br>
+                        This is you promo code for verification on Cryptonomica.net:&nbsp;&nbsp;
+                        <a style="font-weight: bold" ng-href="{{promoCode.link}}" target="_blank"
+                           title="click to open Cryptonomica.net">
+                            {{promoCode.promoCode}}
+                        </a><br>
+                        (click on the link to Cryptonomica and your promo code will be applied automatically)<br><br>
+                        After verification on Cryptonomica.net return here and enter a fingerprint of your verified
+                        public key certificate.
+                    </div>
+
+                </div>
+
+            </form>
+
+            <div id="myUserDataFromServer" ng-show="myUserDataFromServer.pgpPublicKeyAPIView">
+                Your profile:<br>
+                <span ng-show="gapi.login"><img class="ui avatar image" ng-src="{{gapi.user.picture}}"></span>
+                <span style="font-weight: bold">
+                        {{myUserDataFromServer.pgpPublicKeyAPIView.firstName}}&nbsp;{{myUserDataFromServer.pgpPublicKeyAPIView.lastName}}
+                    </span><br>
+                <span>
+                        {{myUserDataFromServer.pgpPublicKeyAPIView.userEmail}}<br>
+                        Cryptonomica Key ID:&nbsp;&nbsp;
+                        <a ng-href="https://www.cryptonomica.net/#!/key/{{myUserDataFromServer.pgpPublicKeyAPIView.fingerprint}}"
+                           target="_blank">
+                            {{myUserDataFromServer.pgpPublicKeyAPIView.keyID}}
+                        </a>
+                    </span><br>
+                Verification valid until:&nbsp;&nbsp;
+                <span ng-style="(myUserDataFromServer.pgpPublicKeyAPIView.expired && {'color':'red', 'font-weight':'bold'})||{'color':'green'}">
+                        {{myUserDataFromServer.pgpPublicKeyAPIView.exp | date}}
+                    </span><br>
+
+                <span ng-show="myUserDataFromServer&&myUserDataFromServer.appUser">
+                        Your banking account (IBAN):&nbsp;&nbsp;
+                        <span ng-show="myUserDataFromServer.appUser.iban">
+                            {{myUserDataFromServer.appUser.iban}}
+                        </span>
+                        <span ng-show="!myUserDataFromServer.appUser.iban" style="color: red">
+                            not set
+                        </span>
+                        <br>
+                        Account (IBAN) owner name:&nbsp;&nbsp;
+                        <span ng-show="myUserDataFromServer.appUser.ibanAccountOwnerName">
+                            {{myUserDataFromServer.appUser.ibanAccountOwnerName}}
+                        </span>
+                        <span ng-show="!myUserDataFromServer.appUser.ibanAccountOwnerName">
+                            not set
+                        </span>
+
+                </span>
+                <br>
+
+                <div ng-show="myUserDataFromServer.appUser.ethAddress">
+                    Registered ETH address for this profile:&nbsp;&nbsp;
+                    <a style="font-weight: bold"
+                       ng-href="{{currentNetwork.etherscanLinkPrefix}}address/{{myUserDataFromServer.appUser.ethAddress}}"
+                       target="_blank" title="Click to see on etherscan">
+                        {{myUserDataFromServer.appUser.ethAddress}}
+                    </a>
+                </div>
+
+                <span ng-show="myUserDataFromServer&&myUserDataFromServer.appUser&&myUserDataFromServer.appUser.paymentReference">
+                        EUR payments reference:&nbsp;&nbsp;
+                        <a ng-copyable href="" title="click to copy">
+                            {{myUserDataFromServer.appUser.paymentReference}}
+                        </a>
+                    </span>
+
+                <div class="ui divider"></div>
+            </div>
+
+            <div ng-show="myUserDataFromServer&&myUserDataFromServer.pgpPublicKeyAPIView&&myUserDataFromServer.pgpPublicKeyAPIView.fingerprint">
+
+                <div ng-hide="myUserDataFromServer&&myUserDataFromServer.appUser&&myUserDataFromServer.appUser.ethAddress">
+                    <h4>Add Ethereum address to your account:</h4>
+                    <p>
+                        To buy and sell xEUR tokens you have to verify your Ethereum account.<br>
+                        For account verification you have to sign a string with MetaMask and send signature to our
+                        server.
+                    </p>
+                </div>
+
+                <button class="ui primary button" ng-hide="web3&&web3.eth&&web3.eth.defaultAccount"
+                        ng-click="myAccConnectMetaMask()" style="margin-top: 0.5em">
+                    <i class="ethereum icon icon"></i>
+                    Connect MetaMask
+                </button>
+
+                <div ng-show="web3&&web3.eth&&web3.eth.defaultAccount&&myUserDataFromServer&&myUserDataFromServer.appUser">
+
+                    <div ng-show="!myUserDataFromServer.appUser.ethAddress">
+
+                        <button class="ui primary button"
+                                ng-click="verifyEthereumAddress()">
+                            <i class="ethereum icon icon"></i>&nbsp;
+                            Verify Ethereum Account
+                        </button>
+
+                        <div ng-show="web3&&web3.eth&&web3.eth.defaultAccount">
+                            User ETH account connected:&nbsp;&nbsp;
+                            <a ng-href="{{currentNetwork.etherscanLinkPrefix}}address/{{web3.eth.defaultAccount}}"
+                               target="_blank">
+                                {{web3.eth.defaultAccount}}
+                            </a>
+                        </div>
+
+                    </div>
+
+                    <button class="ui button"
+                            ng-show="myUserDataFromServer&&myUserDataFromServer.appUser&&myUserDataFromServer.appUser.ethAddress&&myUserDataFromServer.appUser.ethAddress.toString().toLowerCase()!=web3.eth.defaultAccount.toString().toLowerCase()"
+                            ng-click="verifyEthereumAddress()" style="margin-top: 0.5em">
+                        <!--<i class="ethereum icon icon"></i>-->
+                        Change Ethereum Account in your profile to<br>
+                        {{web3.eth.defaultAccount}}<br>
+                        <br>
+                        (!payment reference for EUR will be also changed!)
+                    </button>
+
+                </div>
+
+            </div>
+
+            <div id="enterIBAN"
+                 ng-show="myUserDataFromServer&&myUserDataFromServer.appUser&&myUserDataFromServer.appUser.ethAddress">
+                <br>
+                <div class="ui divider"></div>
+                <form id="enterIbanForm" class="ui form">
+
+                    <div class="field">
+
+                        <h3>
+                            Enter/change IBAN of your bank account
+                        </h3>
+
+                        <label>IBAN:</label>
+                        <div class="ui left icon input">
+                            <i class="euro icon"></i>
+                            <input id="iban" type="text" ng-model="iban">
+                        </div>
+
+                        <label>Account (this IBAN) owner name:</label>
+                        <div class="ui input">
+                            <!--<i class="euro icon"></i>-->
+                            <input id="accountOwnerName" type="text" ng-model="accountOwnerName">
+                        </div>
+
+                        <!--<span style="color: red">{{fingerprintFormValidationMessage}}</span>-->
+                        <br>
+                        <button class="ui button" ng-click="addIBAN()"
+                                ng-disabled="!iban||!accountOwnerName">
+                            Submit IBAN
+                        </button>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+
+        <div id="xEURtoEurInstruction" class="ui segment"
+             ng-show="myUserDataFromServer&&myUserDataFromServer.appUser&&myUserDataFromServer.appUser.iban&&myUserDataFromServer.appUser.iban&&myUserDataFromServer.appUser.ethAddress">
+            <h3>Exchange xEUR to fiat EUR</h3>
+            <p>
+                To exchange xEURO to EURO, send xEURO tokens from your registered Ethereum account to smart contract
+                address:&nbsp;&nbsp;<br>
+                <a ng-href="{{currentNetwork.etherscanLinkPrefix}}address/{{contractAddress}}"
+                   title="click to see on etherscan.io" target="_blank">
+                    {{contractAddress}}
+                </a>
+            </p>
+            <p>
+                The same amount minus the commission ({{commissions.commissionOut}}%, min. commission&nbsp;
+                {{commissions.minCommissionOut}} EUR) will be credited to your bank account
+                connected to your registered Ethereum address
+                <span ng-show="myUserDataFromServer.appUser.iban">
+                    <br>(your bank account:&nbsp;
+                    <a ng-copyable href="" title="Click to copy">
+                        {{myUserDataFromServer.appUser.iban}}
+                    </a>)
+                </span>
+                <br>
+                Minimal amount to exchange: {{commissions.minAmountToExchange}} EUR.
+
+            </p>
+            <p>
+                You can make such a transfer on the '<span style="font-weight: bold">Smart Contract</span>' tab.
+                Or just use MetaMask or your Ethereum wallet to send tokens<br>
+                Please check that you are sending tokens from the Ethereum account registered in the system, tokens sent
+                from unregistered account will be not exchanged to fiat.
+            </p>
+        </div>
+
+        <div id="EurToXEuroInstruction" class="ui segment"
+             ng-show="myUserDataFromServer&&myUserDataFromServer.pgpPublicKeyAPIView">
+
+            <h3>Exchange fiat EUR to xEUR token</h3>
+            <p>
+                To exchange fiat EUR to xEURO,
+                make a payment from your bank account to:&nbsp;&nbsp;<br>
+                Bank account:&nbsp;&nbsp;<a id="bankAccount" ng-copyable href="" title="Click to copy">LT183510000088270907</a><br>
+                Recipient: <a ng-copyable href="" title="Click to copy">Etna Development OU</a><br>
+                With a reference:
+                <span ng-show="myUserDataFromServer&&myUserDataFromServer.appUser&&myUserDataFromServer.appUser.paymentReference">
+                    <a ng-copyable href="" title="Click to copy">
+                        {{myUserDataFromServer.appUser.paymentReference}}
+                    </a>
+                </span>
+                <span ng-hide="myUserDataFromServer&&myUserDataFromServer.appUser&&myUserDataFromServer.appUser.paymentReference"
+                      style="color: red; font-style: italic">
+                    verify your Ethereum address to get payment reference
+                </span>
+            </p>
+            <p>
+                Payment have to be made in EUR only, and only from
+                <a href="https://en.wikipedia.org/wiki/Single_Euro_Payments_Area" target="_blank"
+                   title="Click to see info on SEPA">
+                    SEPA
+                </a>
+                bank account.<br>
+            </p>
+            <p>
+                You will receive xEURO tokens on your registered Ethereum address.<br>
+                <span ng-show="myUserDataFromServer&&myUserDataFromServer.appUser&&myUserDataFromServer.appUser.ethAddress">
+                    (Your registered Ethereum address:&nbsp;&nbsp;
+                       <a ng-href="{{currentNetwork.etherscanLinkPrefix}}address/{{myUserDataFromServer.appUser.ethAddress}}"
+                          target="_blank" title="Click to see on etherscan">
+                        {{myUserDataFromServer.appUser.ethAddress}}
+                    </a>)
+                </span>
+            </p>
+            <p>
+                Commission to exchange EUR to xEUR:&nbsp;&nbsp;{{commissions.commissionIn}}%, min. commission&nbsp;
+                {{commissions.minCommissionIn}} EUR. Minimal amount to exchange: {{commissions.minAmountToExchange}}
+                EUR.
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+<br>
+<footer-main></footer-main>
+<br>

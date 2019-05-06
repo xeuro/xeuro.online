@@ -12,7 +12,7 @@
            ng-show="myUserDataFromServer&&myUserDataFromServer.appUser&&myUserDataFromServer.appUser.admin">Admin</a>
     </div>
 
-    <div id="smartContractTab" class="ui bottom attached active tab segment" data-tab="smartContract">
+    <d id="smartContractTab" class="ui bottom attached active tab segment" data-tab="smartContract">
 
         <no-connection-to-node-error></no-connection-to-node-error>
         <div class="ui negative message"
@@ -21,9 +21,18 @@
             Please, switch to {{networks[contractDeployedOnNetworkId].networkName}}
         </div>
 
-        <a class="ui red ribbon label">{{labelText}}</a>
+        <a class="ui red ribbon label" ng-show="showLabel">{{labelText}}</a>
 
-        <h1>Smart contract</h1>
+        <center>
+            <h1>
+                Smart contract
+            </h1>
+        </center>
+
+        <a href="https://github.com/EthereumCommonwealth/Auditing/issues/231#issuecomment-489445514"
+           target="_blank">
+            <img class="ui small image" src="/app/images/callisto-badge.png">
+        </a><br>
 
         <alerts></alerts>
 
@@ -407,7 +416,7 @@
 
         </div>
 
-    </div>
+</div>
 
 </div>
 

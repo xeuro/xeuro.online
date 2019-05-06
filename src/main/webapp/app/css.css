@@ -1,6 +1,7 @@
 
 body {
     background-color: #f0f0f0;
+    /*background-color: #cfe4de;*/
 }
 
 textarea {
@@ -13,6 +14,17 @@ textarea {
     padding-bottom: 0.5em;
     /*margin-bottom: 0.5em;*/
     margin-bottom: 1em;
+}
+
+a .socialLogo {
+    font-size: 1.4em;
+    color: #555555 !important;
+    /*color: #9c9c9c !important;*/
+    /*color: black !important;*/
+}
+
+a .socialLogo:hover {
+    color: black !important;
 }
 
 fieldset {

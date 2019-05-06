@@ -1,6 +1,3 @@
-FAQ
-===
-
 ---------------
 ## Is xEUR a 'virtual currency'? 
 
@@ -69,7 +66,7 @@ Thus xEUR is clearly not a 'security' under The "Howey Test".
 ---------------
 ## Can I use xEUR on cryptocurrency exchanges? 
 
-Yes. You can use xEUR on [stex](https://www.stex.com) and other cryptocurrency exchanges. 
+Yes. You can use xEUR on [STEX](https://www.stex.com) and other cryptocurrency exchanges.
 
 ---------------
 ## Can Etna Development OÜ block or freeze transfers of tokens from one Ethereum address to another? 

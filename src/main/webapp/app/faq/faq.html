@@ -16,9 +16,12 @@
 
         <no-connection-to-node-error></no-connection-to-node-error>
 
-        <a class="ui red right ribbon label">{{labelText}}</a>
+        <a class="ui red right ribbon label" ng-show="showLabel">{{labelText}}</a>
 
-        <!--<h1>FAQ (frequently asked questions)</h1>-->
+        <center>
+            <h1>FAQ (frequently asked questions)</h1>
+        </center>
+
         <div>
             <br>
             <md ng-include="'/app/faq/faq.md'"></md>

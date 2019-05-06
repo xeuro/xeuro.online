@@ -412,7 +412,6 @@
                     if ($scope.transferTokensToContractValue < 12) {
                         $scope.transferTokensToContractError = "minimum exchange amount is 12 xEUR";
                         $scope.transferTokensToContractWorking = false;
-
                         return;
                     }
                     $log.debug("transfer", $scope.transferTokensToContractValue, "xEUR from", $rootScope.web3.eth.defaultAccount, "to", $scope.contract._address);

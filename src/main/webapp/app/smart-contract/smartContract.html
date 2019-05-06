@@ -219,9 +219,9 @@
 
             <div id="transferTokensToContract" class="ui segment">
                 <h4>
-                    Transfer your tokens to contract address to exchange to fiat (EUR to your account), min. transfer:
-                    12
-                    xEUR
+                    Transfer your tokens to contract address to exchange to fiat (EUR to your account)<br>
+                    (only if your Ethereum address registered in our system, see: <a ui-sref="myAccount">'My
+                    Account'</a> tab)
                 </h4>
 
                 <div ng-show="web3.eth.defaultAccount" title="click to refresh"
@@ -243,7 +243,7 @@
                         <label>Transfer:</label>
                         <div class="ui left labeled input">
                             <label for="transferTokensToContractValue" class="ui label">xEURO</label>
-                            <input type="number" id="transferTokensToContractValue"
+                            <input id="transferTokensToContractValue" type="number" min="12"
                                    ng-model="transferTokensToContractValue">
                         </div>
                     </div>

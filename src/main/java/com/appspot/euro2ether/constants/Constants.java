@@ -43,6 +43,7 @@ public class Constants {
 
     // --- Email
     public static final String emailSubjectPrefix = "[xEUR]";
-    public static final String emailFrom = "admin@xeuro.online";
+    // public static final String emailFrom = "admin@xeuro.online";
+    public static final String emailFrom = "support@xeuro.online";
 
 }

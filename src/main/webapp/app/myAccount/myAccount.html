@@ -1,6 +1,5 @@
 <div class="ui container">
 
-
     <div class="ui top attached stackable tabular menu">
         <!--<div class="ui four item top attached stackable tabular menu">-->
         <!-- not to be used as directive : line between tabs and content -->
@@ -269,10 +268,10 @@
             <p>
                 To exchange xEURO to EURO, send xEURO tokens from your registered Ethereum account to smart contract
                 address:&nbsp;&nbsp;<br>
-                <a ng-href="{{currentNetwork.etherscanLinkPrefix}}address/{{contractAddress}}"
-                   title="click to see on etherscan.io" target="_blank">
+                <a ng-copyable href="" title="click to copy address">
                     {{contractAddress}}
-                </a>
+                </a><br>
+
             </p>
             <p>
                 The same amount minus the commission ({{commissions.commissionOut}}%, min. commission&nbsp;

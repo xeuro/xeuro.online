@@ -58,7 +58,7 @@
                     <span class="ui horizontal tiny label" ng-click="refresh()"
                           title="Click to refresh data from smart contract">
                     <a>Refresh</a>
-                </span>
+                    </span>
                 </h4>
 
                 <div ng-show="currentNetwork&&currentNetwork.network_id">
@@ -75,15 +75,30 @@
 
                 <div ng-show="contract._address">
                     contract address:&nbsp;
+                    <!--
+                    <a ng-copyable href="" title="click to copy address">
+                        {{contractAddress}}
+                    </a>
+                    -->
+                    <br>
+                    <a class="ui image label"
+                       ng-href="{{currentNetwork.etherscanLinkPrefix}}address/{{contractAddress}}"
+                       title="Click to see on etherscan" target="_blank">
+                        <img src="/app/images/etherscan/logo-ether.square.png">
+                        {{contractAddress}}
+                    </a>
+                    <!--
                     <a ng-href="{{currentNetwork.etherscanLinkPrefix}}address/{{contract._address}}"
-                       title="click to see on etherscan.io" target="_blank">
-                        {{contract._address}}
-                    </a>&nbsp;(you can also use smart contract interface on the Etherscan)
+                                           title="click to see on etherscan.io" target="_blank">
+                                            {{contract._address}}
+                                        </a>
+                                        -->
+                    <br>(you can also use smart contract interface on the Etherscan)<br><br>
 
                     <div title="click to refresh"
                          ng-click="refreshTotalSupply()">
                         total supply:&nbsp;
-                        <span ng-hide="refreshTotalSupplyWorking">{{totalSupply}}</span>
+                        <b ng-hide="refreshTotalSupplyWorking">{{totalSupply}}</b>
                         <span ng-show="refreshTotalSupplyWorking"><i class="fa fa-refresh fa-spin fa-fw"></i></span>
                         &nbsp;xEUR
                     </div>
@@ -102,7 +117,7 @@
                     <div ng-show="web3.eth.defaultAccount" title="click to refresh"
                          ng-click="refreshBalanceOfDefaultAccount()">
                         your current balance:&nbsp;
-                        <span ng-hide="balanceOfDefaultAccountWorking">{{balanceOfDefaultAccount}}</span>
+                        <b ng-hide="balanceOfDefaultAccountWorking">{{balanceOfDefaultAccount}}</b>
                         <span ng-show="balanceOfDefaultAccountWorking"><i
                                 class="fa fa-refresh fa-spin fa-fw"></i></span>
                         &nbsp;xEUR

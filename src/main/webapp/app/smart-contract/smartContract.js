@@ -293,6 +293,7 @@
                 };
                 // $scope.refreshTotalSupply();
 
+                $scope.balanceOfDefaultAccount = "click to refresh";
                 $scope.refreshBalanceOfDefaultAccount = function () {
                     if ($rootScope.web3.eth.defaultAccount) {
                         $scope.balanceOfDefaultAccountWorking = true;
@@ -300,9 +301,11 @@
                         $scope.contract.methods.balanceOf($rootScope.web3.eth.defaultAccount).call()
                             .then(function (result) {
                                 $scope.balanceOfDefaultAccount = result;
+                                $log.debug("$scope.balanceOfDefaultAccount :", $scope.balanceOfDefaultAccount);
+                                // $log.debug($scope.balanceOfDefaultAccount);
                             })
                             .catch(function (error) {
-                                $log.debug("$scope.contract.isAdmin.call ERROR:");
+                                $log.debug("$scope.refreshBalanceOfDefaultAccount ERROR:");
                                 $log.debug(error);
                             })
                             .finally(function () {
@@ -511,12 +514,12 @@
 
                 $scope.refresh = function () {
                     // $log.debug("======== refreshing smart contract data ===");
+                    $scope.refreshBalanceOfDefaultAccount();
                     $scope.checkContractAdmin();
                     $scope.checkCanMint();
                     $scope.checkCanBurn();
                     $scope.checkCanTransferFromContract();
                     $scope.refreshTotalSupply();
-                    $scope.refreshBalanceOfDefaultAccount();
                     $scope.refreshBalanceOfContract();
                 };
 

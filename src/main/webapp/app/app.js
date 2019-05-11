@@ -72,13 +72,15 @@
             $rootScope.progressbar.start();
             // $timeout($rootScope.progressbar.complete(), 1000); // to stop
 
-            $rootScope.webAppVersion = "1.0.8";
-            $rootScope.webAppLastChange = "2019-05-06";
-            $rootScope.showLabel=false;
+            $rootScope.webAppVersion = "1.0.9";
+            $rootScope.webAppLastChange = "2019-05-11";
+            $rootScope.showLabel = false;
             $rootScope.labelText = "IN TEST MODE. Version: " + $rootScope.webAppVersion;
             $log.debug("webapp started, ver.", $rootScope.webAppVersion, "(last change:", $rootScope.webAppLastChange + ")");
 
-            $rootScope.supportEmail = "admin@xeuro.online";
+            // $rootScope.supportEmail = "admin@xeuro.online";
+            // $rootScope.supportEmail = "support@xeuro.freshdesk.com";
+            $rootScope.supportEmail = "support@xeuro.online";
             $rootScope.companyName = "Etna Development OÜ";
             $rootScope.xEuroBankAcc = "LT183510000088270907";
             $rootScope.contractAbiPath = "/app/smart-contract/xEuro.abi";

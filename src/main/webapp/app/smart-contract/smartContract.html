@@ -12,7 +12,7 @@
            ng-show="myUserDataFromServer&&myUserDataFromServer.appUser&&myUserDataFromServer.appUser.admin">Admin</a>
     </div>
 
-    <d id="smartContractTab" class="ui bottom attached active tab segment" data-tab="smartContract">
+    <div id="smartContractTab" class="ui bottom attached active tab segment" data-tab="smartContract">
 
         <no-connection-to-node-error></no-connection-to-node-error>
         <div class="ui negative message"
@@ -310,7 +310,7 @@
                     <div class="field">
                         <label>Transfer:</label>
                         <div class="ui left labeled input">
-                            <label for="transferTokensFromContractValue" class="ui label">xEURO</label>
+                            <label for="transferValue" class="ui label">xEURO</label>
                             <input type="number" id="transferValue"
                                    ng-model="transferValue">
                         </div>
@@ -340,6 +340,7 @@
                         Transfer {{transferValue}} tokens
                     </button>
                 </form>
+
             </div>
 
             <div id="burnTokens" class="ui segment" ng-show="canBurn">
@@ -431,7 +432,7 @@
 
         </div>
 
-</div>
+    </div>
 
 </div>
 

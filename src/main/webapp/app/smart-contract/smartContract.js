@@ -442,7 +442,7 @@
                         })
                 }; // end of $scope.transferTokensToContract
 
-                // $scope.transferValue = 0;
+                $scope.transferValue = 0;
                 $scope.transferTo = $rootScope.web3.eth.defaultAccount;
                 $scope.transfer = function () {
                     $scope.transferWorking = true;

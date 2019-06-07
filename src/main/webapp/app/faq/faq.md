@@ -76,6 +76,13 @@ This is provided by decentralized Ethereum blockchain.
 We provide only *exchange* service: fiat for virtual currency and vice-versa. 
 
 ---------------
+## What are differences of xEUR from other stablecoins? 
+
+See an article with a good overview of the stablecoins market: 
+
+[Stablecoins Are Not The Future of Crypto — They Are The Present / by Yura Sherman / Hackernoon / 2019-05-16](https://hackernoon.com/stablecoins-are-not-the-future-of-crypto-they-are-the-present-6fd8994de8fd)
+
+---------------
 ## Where I can get more information about virtual currency /cryptocurrency and  blockchain regulations in Estonia/EU? 
 
 [Cryptocurrency Regulations in Estonia / ComplyAdvantage](https://complyadvantage.com/knowledgebase/crypto-regulations/cryptocurrency-regulations-estonia/)

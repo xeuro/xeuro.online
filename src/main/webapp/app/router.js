@@ -31,6 +31,11 @@ router.config(['$stateProvider',
                 controller: 'app.help',
                 templateUrl: 'app/help/help.html'
             })
+            .state('about', {
+                url: '/about',
+                controller: 'app.about',
+                templateUrl: 'app/about/about.html'
+            })
             .state('smartContract', {
                 url: '/smartContract',
                 controller: 'app.smartContract',

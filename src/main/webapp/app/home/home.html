@@ -1,5 +1,6 @@
 <div class="ui container">
 
+    <!-- not to be used as directive -->
     <div class="ui top attached stackable tabular menu">
         <!--<div class="ui four item top attached stackable tabular menu">-->
         <!-- not to be used as directive : line between tabs and content -->
@@ -7,6 +8,7 @@
         <a class="item" ui-sref-active="active" data-tab="faq" ui-sref="faq">FAQ</a>
         <a class="item" ui-sref-active="active" data-tab="smartContract" ui-sref="smartContract">Smart Contract</a>
         <a class="item" ui-sref-active="active" data-tab="myAccount" ui-sref="myAccount">My Account</a>
+        <a class="item" ui-sref-active="active" data-tab="about" ui-sref="about">About</a>
         <a class="item" ui-sref-active="active" data-tab="admin" ui-sref="admin"
            ng-show="myUserDataFromServer&&myUserDataFromServer.appUser&&myUserDataFromServer.appUser.admin">Admin</a>
     </div>

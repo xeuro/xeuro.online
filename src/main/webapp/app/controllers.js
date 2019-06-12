@@ -6,6 +6,7 @@ var controllers = angular.module('app.controllers', [
         'app.help',
         'app.faq',
         'app.smartContract',
-        'app.myAccount'
+        'app.myAccount',
+        'app.about'
     ]
 );

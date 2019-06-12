@@ -1,31 +1,17 @@
 <div class="ui container">
 
-    <div class="ui top attached tabular menu">
-
+    <!-- not to be used as directive -->
+    <div class="ui top attached stackable tabular menu">
+        <!--<div class="ui four item top attached stackable tabular menu">-->
+        <!-- not to be used as directive : line between tabs and content -->
         <a class="item" ui-sref-active="active" data-tab="home" ui-sref="home">xEURO Home</a>
         <a class="item" ui-sref-active="active" data-tab="faq" ui-sref="faq">FAQ</a>
-        <a class="item" ui-sref-active="active" data-tab="help" ui-sref="help">Help</a>
         <a class="item" ui-sref-active="active" data-tab="smartContract" ui-sref="smartContract">Smart Contract</a>
         <a class="item" ui-sref-active="active" data-tab="myAccount" ui-sref="myAccount">My Account</a>
+        <a class="item" ui-sref-active="active" data-tab="about" ui-sref="about">About</a>
         <a class="item" ui-sref-active="active" data-tab="admin" ui-sref="admin"
            ng-show="myUserDataFromServer&&myUserDataFromServer.appUser&&myUserDataFromServer.appUser.admin">Admin</a>
-
-        <!--
-        <div class="item right">
-                    <div class="right">
-                        <button ng-show="!gapi.login"
-                                class="tiny ui google plus button" ng-click="login()" style="width: 16em">
-                            <i class="google icon"></i>
-                            Login with Google
-                        </button>
-                        <button ng-show="gapi.login"
-                                class="tiny ui google plus button" ng-click="logout()" style="width: 16em">
-                            <i class="google icon"></i>
-                            Logout
-                        </button>
-                    </div>
-                </div>
-         -->
+    </div>
 
     </div>
 

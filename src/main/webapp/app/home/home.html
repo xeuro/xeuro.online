@@ -19,49 +19,43 @@
 
         <a class="ui red right ribbon label" ng-show="showLabel">{{labelText}}</a>
 
-        <center>
+        <div style="text-align: center;">
             <h1 style="margin-bottom: 0.3em">
                 xEURO
             </h1>
             <h3 style="margin-top: 0">
                 most transparent and legally compliant stablecoin automatically convertible to fiat
             </h3>
-        </center>
-
-        <div class="line"></div>
-        <div class="ui grid">
-            <div class="row">
-                <div class="one wide column">
-                    <a href="https://crex24.com" target="_blank" title="xEUR listed on CREX24 Exchange">
-                        <img class="ui mini image" src="/app/images/crex24/crex24_logo.svg">
-                    </a>
-                </div>
-
-                <div class="one wide column">
-                    <a href="https://swap.online/" target="_blank" title="xEUR listed on Swap Online Exchange">
-                        <img class="ui mini image" src="/app/images/swap.online/swap-online.logo.jpg">
-                        <!--                    <img class="ui mini image" src="/app/images/swap.online/logo-bw.png">-->
-                    </a>
-                </div>
-
-                <div class="two wide column">
-                    <a href="https://app.stex.com/en/pairs-specification?search=xEUR" target="_blank"
-                       title="xEUR listed on STEX Exchange">
-                        <img class="ui tiny image" style="padding-top: 0.8em"
-                             src="/app/images/stex/transparent/Black/stex_logo_transparent_black.svg">
-                    </a>
-                </div>
-                <div class="ten wide column"></div>
-                <div class="two wide column">
-                    <a href="https://trustwallet.com" target="_blank" title="xEUR listed and supported in Trust Wallet">
-                        <img class="ui image" style="height: 4em"
-                             src="https://uploads-ssl.webflow.com/5a88babea6e0f90001b39b0d/5c92817018213d08c5149784_Trust_horizontal_white.svg">
-                    </a>
-                </div>
-            </div>
         </div>
+
+        <!--<div class="line"></div>-->
+        <ul class="logosList">
+            <li>
+                <a href="https://crex24.com" target="_blank" title="xEUR listed on CREX24 Exchange">
+                    <img class="ui mini image" src="/app/images/crex24/crex24_logo.svg">
+                </a>
+            </li>
+            <li>
+                <a href="https://swap.online/" target="_blank" title="xEUR listed on Swap Online Exchange">
+                    <img class="ui mini image" src="/app/images/swap.online/swap-online.logo.jpg">
+                </a>
+            </li>
+            <li>
+                <a href="https://app.stex.com/en/pairs-specification?search=xEUR" target="_blank"
+                   title="xEUR listed on STEX Exchange">
+                    <img class="ui tiny image"
+                         src="/app/images/stex/transparent/Black/stex_logo_transparent_black.svg">
+                </a>
+            </li>
+            <li>
+                <a href="https://trustwallet.com" target="_blank" title="xEUR listed and supported in Trust Wallet">
+                    <img class="ui image" style="height: 4em"
+                         src="https://uploads-ssl.webflow.com/5a88babea6e0f90001b39b0d/5c92817018213d08c5149784_Trust_horizontal_white.svg">
+                </a>
+            </li>
+        </ul>
         <!--        <br>-->
-        <div class="line"></div>
+        <!--<div class="line"></div>-->
 
         <h2>What is xEURO</h2>
 
@@ -116,15 +110,18 @@
             <a href="https://github.com/ethereum/mist/releases" target="_blank">Mist</a> etc.
         </p>
         <p>
-            xEUR is managed by smart contract:&nbsp;&nbsp;
-            <a class="ui image label" ng-href="{{currentNetwork.etherscanLinkPrefix}}address/{{contractAddress}}"
-               title="Click to see on etherscan" target="_blank">
-                <img src="/app/images/etherscan/logo-ether.square.png">
-                {{contractAddress}}
-            </a>
+            xEUR is managed by smart contract:
         </p>
+        <div class="addressHolder">
+            <a class="addressLabel" ng-href="{{currentNetwork.etherscanLinkPrefix}}address/{{contractAddress}}"
+               title="Click to see on etherscan"
+               target="_blank">
+                <img src="/app/images/etherscan/logo-ether.square.png">
+                <span>{{contractAddress}}</span>
+            </a>
+        </div>
 
-        <div class="line"></div>
+        <!--<div class="line"></div>-->
 
         <h1>Buy xEURO</h1>
 
@@ -177,7 +174,7 @@
                     LT183510000088270907
                 </td>
             </tr>
-            <tr>
+            <tr style="box-shadow: none!important;">
                 <td>Reference:</td>
                 <!--<td class="" style="color: #000066; font-style: italic;">-->
                 <td>
@@ -203,7 +200,7 @@
             and pass user verification (KYC).
         </p>
 
-        <div class="line"></div>
+        <!--<div class="line"></div>-->
         <!--
 
                 <h3>News:</h3>
@@ -271,6 +268,6 @@
 
 </div>
 
-<br>
+<!--<br>-->
 <footer-main></footer-main>
-<br>
+<!--<br>-->

@@ -72,8 +72,8 @@
             $rootScope.progressbar.start();
             // $timeout($rootScope.progressbar.complete(), 1000); // to stop
 
-            $rootScope.webAppVersion = "1.1.1";
-            $rootScope.webAppLastChange = "2019-06-14";
+            $rootScope.webAppVersion = "1.2.1";
+            $rootScope.webAppLastChange = "2019-06-18";
             $rootScope.showLabel = false;
             $rootScope.labelText = "IN TEST MODE. Version: " + $rootScope.webAppVersion;
             $log.debug("webapp started, ver.", $rootScope.webAppVersion, "(last change:", $rootScope.webAppLastChange + ")");

@@ -19,46 +19,43 @@
 
         <a class="ui red right ribbon label" ng-show="showLabel">{{labelText}}</a>
 
-        <center>
+        <div style="text-align: center;">
             <h1 style="margin-bottom: 0.3em">
                 xEURO
             </h1>
             <h3 style="margin-top: 0">
                 Most transparent and legally compliant stable coin automatically convertible to fiat
             </h3>
-        </center>
-
-        <div class="line"></div>
-
-        <div id="listedOnLogos"
-             style="margin-bottom: 3.7em">
-
-            <a href="https://crex24.com/exchange/XEUR-BTC" class="ui left floated image" target="_blank"
-               title="xEUR is listed on CREX24 Exchange">
-                <img src="/app/images/crex24/crex24_logo.svg" style="height: 1.7em">
-            </a>
-
-            <a href="https://swap.online/XEUR-wallet" class="ui left floated image" target="_blank"
-               title="xEUR is listed on Swap Online Exchange">
-                <img src="/app/images/swap.online/swap-online.logo.jpg" style="height: 1.7em">
-            </a>
-
-            <a href="https://app.stex.com/en/pairs-specification?search=xEUR" class="ui left floated image"
-               target="_blank"
-               title="xEUR is listed on STEX Exchange">
-                <img src="/app/images/stex/transparent/Black/stex_logo_transparent_black.svg" style="height: 1.7em;">
-            </a>
-
-            <a href="https://trustwallet.com" class="ui right floated image" target="_blank"
-               title="xEUR is listed and supported in Trust Wallet">
-
-                <img
-                        src="https://uploads-ssl.webflow.com/5a88babea6e0f90001b39b0d/5c92817018213d08c5149784_Trust_horizontal_white.svg"
-                        style="height: 3.1em;">
-            </a>
-
         </div>
-        <div class="line"></div>
+
+        <!--<div class="line"></div>-->
+        <ul class="logosList">
+            <li>
+                <a href="https://crex24.com" target="_blank" title="xEUR listed on CREX24 Exchange">
+                    <img class="ui mini image" src="/app/images/crex24/crex24_logo.svg">
+                </a>
+            </li>
+            <li>
+                <a href="https://swap.online/" target="_blank" title="xEUR listed on Swap Online Exchange">
+                    <img class="ui mini image" src="/app/images/swap.online/swap-online.logo.jpg">
+                </a>
+            </li>
+            <li>
+                <a href="https://app.stex.com/en/pairs-specification?search=xEUR" target="_blank"
+                   title="xEUR listed on STEX Exchange">
+                    <img class="ui tiny image"
+                         src="/app/images/stex/transparent/Black/stex_logo_transparent_black.svg">
+                </a>
+            </li>
+            <li>
+                <a href="https://trustwallet.com" target="_blank" title="xEUR listed and supported in Trust Wallet">
+                    <img class="ui image" style="height: 4em"
+                         src="https://uploads-ssl.webflow.com/5a88babea6e0f90001b39b0d/5c92817018213d08c5149784_Trust_horizontal_white.svg">
+                </a>
+            </li>
+        </ul>
+        <!--        <br>-->
+        <!--<div class="line"></div>-->
 
         <h2>What is xEURO</h2>
 
@@ -73,8 +70,7 @@
         </p>
         <p>
             At the same time, the price of the token, unlike many other cryptocurrencies, is not volatile,
-            you can exchange your tokens at any time for the price of one euro per one token: send the tokens
-            to
+            you can exchange your tokens at any time for the price of one euro per one token: send the tokens to
             the smart contract address, and you will receive euros to your account. It's like
             <a href="https://en.wikipedia.org/wiki/Traveler%27s_cheque" target="_blank">traveler's checks</a>
             but on the blockchain.
@@ -108,23 +104,25 @@
                 ERC20
             </a>
             token on the Ethereum blockchain and it is already supported in almost all Ethereum wallets software,
-            such
-            as
+            such as
             <a href="https://metamask.io" target="_blank">Metamask</a>,
             <a href="https://trustwallet.com" target="_blank">Trust Wallet</a>,
             <a href="https://www.myetherwallet.com" target="_blank">MEW</a>,
             <a href="https://github.com/ethereum/mist/releases" target="_blank">Mist</a> etc.
         </p>
         <p>
-            xEUR is managed by smart contract:&nbsp;&nbsp;
-            <a class="ui image label" ng-href="{{currentNetwork.etherscanLinkPrefix}}address/{{contractAddress}}"
-               title="Click to see on etherscan" target="_blank">
-                <img src="/app/images/etherscan/logo-ether.square.png">
-                {{contractAddress}}
-            </a>
+            xEUR is managed by smart contract:
         </p>
+        <div class="addressHolder">
+            <a class="addressLabel" ng-href="{{currentNetwork.etherscanLinkPrefix}}address/{{contractAddress}}"
+               title="Click to see on etherscan"
+               target="_blank">
+                <img src="/app/images/etherscan/logo-ether.square.png">
+                <span>{{contractAddress}}</span>
+            </a>
+        </div>
 
-        <div class="line"></div>
+        <!--<div class="line"></div>-->
 
         <h1>Buy xEURO</h1>
 
@@ -177,7 +175,7 @@
                     LT183510000088270907
                 </td>
             </tr>
-            <tr>
+            <tr style="box-shadow: none!important;">
                 <td>Reference:</td>
                 <!--<td class="" style="color: #000066; font-style: italic;">-->
                 <td>
@@ -203,7 +201,7 @@
             and pass user verification (KYC).
         </p>
 
-        <div class="line"></div>
+        <!--<div class="line"></div>-->
         <!--
 
                 <h3>News:</h3>
@@ -213,7 +211,7 @@
         <h3>Read about xEUR:</h3>
         <a href="https://hackernoon.com/stablecoins-are-not-the-future-of-crypto-they-are-the-present-6fd8994de8fd"
            target="_blank">
-            Stablecoins Are Not the Future of Crypto — They Are The Present, by Yura Sherman / <b>Hackernoon</b>
+            Stablecoins Are Not the Future of Crypto — They Are the Present, by Yura Sherman / <b>Hackernoon</b>
         </a>
         <!--        <div class="line"></div>-->
         <br><br>
@@ -271,6 +269,6 @@
 
 </div>
 
-<br>
+<!--<br>-->
 <footer-main></footer-main>
-<br>
+<!--<br>-->

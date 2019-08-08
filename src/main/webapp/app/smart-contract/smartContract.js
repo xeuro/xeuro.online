@@ -569,11 +569,24 @@
                         // $log.debug("event:");
                         // $log.debug(event);
 
+                        /*
                         if ($scope.maxEventsNumber && $scope.events.length > $scope.maxEventsNumber) {
                             $scope.allEvents.shift();
                         }
                         $scope.events.push(event);
+                        */
+
+                        // The unshift() method adds new items to the beginning of an array, and returns the new length.
+                        $scope.events.unshift(event);
+
+                        if ($scope.maxEventsNumber && $scope.events.length > $scope.maxEventsNumber) {
+                            // The pop() method removes the last element of an array, and returns that element.
+                            $scope.events.pop();
+                        }
+
+
                         $scope.refresh(); // <<< after each event refresh smart contract's data
+
                     })
                     .on('error', function (error) {
                         $log.error("contract.events.allEvents error:");

@@ -7,6 +7,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="euro2ether" />
+        <module name="xeuro.online" />
       </profile>
     </annotationProcessing>
   </component>
